@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/cosmoway/smalo-edison/issues"
   },
-  "homepage": "https://github.com/cosmoway/smalo-edison"
+  "homepage": "https://github.com/cosmoway/smalo-edison",
+  "dependencies": {
+    "noble": "^1.3.0"
+  }
 }
