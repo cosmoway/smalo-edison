@@ -1,28 +1,15 @@
 {
-  "name": "smalo-edison",
-  "version": "0.0.1",
+  "name": "blankapp",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.0",
+  "main": "main.js",
+  "engines": {
+    "node": ">=0.10.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cosmoway/smalo-edison.git"
-  },
-  "keywords": [
-    "SmartLock",
-    "Intel",
-    "Edison",
-    "Node.js"
-  ],
-  "author": "COSMOWAY inc.",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cosmoway/smalo-edison/issues"
-  },
-  "homepage": "https://github.com/cosmoway/smalo-edison",
   "dependencies": {
-    "noble": "^1.3.0"
+      "async":"latest",
+      "bleno":"latest",
+      "noble":"latest"
+    
   }
 }
