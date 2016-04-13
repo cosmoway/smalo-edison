@@ -1,0 +1,13 @@
+{
+  "Advertise": {
+    "LocalName": "smalo"
+  },
+  "Uuids": {
+    "smalo-service": "9ada4c64-c941-46c2-9156-c39addd4f77c",
+    "smalo-unlock-characteristic": "9ada4c64-c941-46c2-9156-c39addd4f77c",
+    "smalo-lock-characteristic": "47a10c88-f91f-45b0-9212-97cb6fbcd298",
+    "smalo-major-characteristic": "b2e238b4-5b26-48c1-9023-2099a02c99b0",
+    "smalo-minor-characteristic": "68da96b6-7634-440a-8fcf-95ef1a5e7e5b",
+    "smalo-lock-status-characteristic": "0ab375be-141a-4ba2-81ee-e6ecc695ac06"
+  }
+}
