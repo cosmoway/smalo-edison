@@ -1,0 +1,8 @@
+{
+  "devices": [
+    {"deviceName": "shinkai_iphone6", "uuid": "12345678-aaaa-bbbb-cccc-bbbb-123456789012"},
+    {"deviceName": "shinkai_nexus5", "uuid": "22345678-aaaa-bbbb-cccc-bbbb-123456789012"},
+    {}
+  ]
+}
+
