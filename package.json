@@ -21,5 +21,12 @@
   "bugs": {
     "url": "https://github.com/cosmoway/smalo-edison/issues"
   },
-  "homepage": "https://github.com/cosmoway/smalo-edison"
+  "homepage": "https://github.com/cosmoway/smalo-edison",
+  "dependencies": {
+    "bleno": "^0.4.0",
+    "config": "^1.20.1",
+    "debug": "^2.2.0",
+    "errorlog": "^1.4.3",
+    "moment": "^2.12.0"
+  }
 }
