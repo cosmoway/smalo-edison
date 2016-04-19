@@ -1,0 +1,7 @@
+{
+  "devices": [
+    {"deviceName": "dummy01", "uuid": "12345678-aaaa-bbbb-cccc-bbbb-123456789012"},
+    {"deviceName": "dummy02", "uuid": "22345678-AAAA-BBBB-CCCC-DDDD-123456789012"}
+  ]
+}
+
