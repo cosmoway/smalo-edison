@@ -13,10 +13,8 @@ doorStatus.on('changeStatus', function(lockStatus){
   // 鍵の状態を確認する
   debug('[Door] change to ' + lockStatus);
 });
-
-var major = Math.floor(Math.random() * 65536);
-var minor = Math.floor(Math.random() * 65536);
-console.log({major: major, minor: minor});
+var IBeacon = require('../lib/ibeacon');
+var iBeacon  = new IBeacon();
 
 slack.init({
   path: process.env['SLACK_WEBHOOK_URL'],
@@ -33,7 +31,7 @@ router.param('hash', function(req, res, next, id){
   } else {
     var result = devices.some(function(device){
       if (device.deviceName && device.uuid) {
-        var source = device.uuid + '|' + major + '|' + minor;
+        var source = device.uuid + '|' + iBeacon.getMajor() + '|' + iBeacon.getMinor();
         var hash = crypto.createHash('sha256').update(source).digest('hex');
         if (hash.toUpperCase() === id.toUpperCase()) {
           req.device = device;
@@ -43,9 +41,6 @@ router.param('hash', function(req, res, next, id){
     });
 
     if (result) {
-      // 鍵を開ける。
-      // major/minorを更新
-      // iBeaconの再発信
       next();
     } else {
       var error = new Error('403 Forbidden');
@@ -66,6 +61,9 @@ router.get('/locks/unlocking/:hash', function(req, res, next){
   // 鍵の解錠
   door.unlock();
 
+  // major/minor及びbeaconの更新
+  iBeacon.emit('refresh', 'unlock');
+
   res.send('200 OK');
 });
 
@@ -79,6 +77,9 @@ router.get('/locks/locking/:hash', function(req, res, next){
 
   // 鍵の施錠
   door.lock();
+
+  // major/minor及びbeaconの更新
+  iBeacon.emit('refresh', 'lock');
 
   res.send('200 OK');
 });
