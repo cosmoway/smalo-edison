@@ -2,13 +2,15 @@
 var crypto = require('crypto');
 var devices = require('config').get('devices');
 var express = require('express');
-var router = express.Router();
+var DoorStatus = require('../lib/door-status');
+var doorStatus = new DoorStatus();
 
 var major = Math.floor(Math.random() * 65536);
 var minor = Math.floor(Math.random() * 65536);
 
 console.log({major: major, minor: minor});
 
+var router = express.Router();
 router.param('hash', function(req, res, next, id){
   // uuid|major|minorでのチェックを行う。
   if (id.length !== 64) {
@@ -28,6 +30,9 @@ router.param('hash', function(req, res, next, id){
     });
 
     if (result) {
+      // 鍵を開ける。
+      // major/minorを更新
+      // iBeaconの再発信
       next();
     } else {
       var error = new Error('403 Forbidden');
@@ -52,7 +57,7 @@ router.get('/locks/locking/:hash', function(req, res, next){
 
 router.get('/locks/status/:hash', function(req, res, next){
   console.log('requested: status');
-  res.send('locked');
+  res.send(doorStatus.getStatus());
 });
 
 module.exports = router;
