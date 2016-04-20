@@ -6,6 +6,7 @@ var express = require('express');
 var slack = require('simple-slack-webhook');
 var util = require('util');
 
+var door = require('../lib/door');
 var DoorStatus = require('../lib/door-status');
 var doorStatus = new DoorStatus();
 doorStatus.on('changeStatus', function(lockStatus){
@@ -56,21 +57,29 @@ router.param('hash', function(req, res, next, id){
 });
 
 router.get('/locks/unlocking/:hash', function(req, res, next){
+  console.log('requested: unlocking');
+
   // Slackへの通知
   debug(req.device, 'slack:post', 'unlock');
   slack.text(util.format('玄関のドアを解錠しました（ :key: %s）',  req.device.deviceName));
 
-  console.log('requested: unlocking');
+  // 鍵の解錠
+  door.unlock();
+
   res.send('200 OK');
 });
 
 
 router.get('/locks/locking/:hash', function(req, res, next){
+  console.log('requested: locking');
+
   // Slackへの通知
   debug(req.device, 'slack:post', 'lock');
   slack.text(util.format('玄関のドアを施錠しました（ :key: %s）',  req.device.deviceName));
 
-  console.log('requested: locking');
+  // 鍵の施錠
+  door.lock();
+
   res.send('200 OK');
 });
 
