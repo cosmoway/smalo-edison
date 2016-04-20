@@ -28,6 +28,7 @@
     "debug": "^2.2.0",
     "errorlog": "^1.4.3",
     "express": "^4.13.4",
+    "file-stream-rotator": "0.0.6",
     "moment": "^2.12.0",
     "morgan": "^1.7.0",
     "simple-slack-webhook": "0.0.4"
