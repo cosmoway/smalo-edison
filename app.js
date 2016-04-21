@@ -11,7 +11,7 @@ var server = app.listen(10080, function(){
   console.log("Node.js is listening to PORT:" + server.address().port);
 });
 
-app.use(logger('dev'));
+app.use(logger('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
