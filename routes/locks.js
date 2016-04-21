@@ -18,7 +18,8 @@ var iBeacon  = new IBeacon();
 
 slack.init({
   path: process.env['SLACK_WEBHOOK_URL'],
-  channel: '@shinkai'
+  username: 'SMALO',
+  channel: '#activity'
 });
 
 var router = express.Router();
