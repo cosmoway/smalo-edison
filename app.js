@@ -2,11 +2,16 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 
 var locks = require('./routes/locks');
 
-var app = express();
+// 日付のフォーマットを変更
+logger.token('date', function getDateToken(req, res, format) {
+  return moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+});
 
+var app = express();
 var server = app.listen(10080, function(){
   console.log("Node.js is listening to PORT:" + server.address().port);
 });
