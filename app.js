@@ -60,7 +60,11 @@ doorStatus.on('changeStatus', function(lockStatus){
 // WebSocketの生存確認(Ping/Pong)
 setInterval(function(){
   debug('PING send.');
-  ws.ping('PING');
+  try {
+    ws.ping('PING');
+  } catch (error) {
+    console.error(error);
+  }
 }, 30000);
 
 ws.on('pong', function(data, flags){
@@ -68,8 +72,12 @@ ws.on('pong', function(data, flags){
 });
 
 ws.on('ping', function(data, flags){
-  ws.pong('PONG');
   debug('PING received: ' + data.toString());
+  try {
+    ws.pong('PONG');
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 // TODO: 切断された場合の再接続は？
