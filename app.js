@@ -73,3 +73,6 @@ ws.on('ping', function(data, flags){
 });
 
 // TODO: 切断された場合の再接続は？
+ws.on('close', function(code, message){
+  debug('websocket disconnected.');
+});
