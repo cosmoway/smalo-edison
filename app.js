@@ -30,3 +30,18 @@ doorStatus.on('changeStatus', function(lockStatus){
   debug('lock status changed to ' + lockStatus);
   ws.send(JSON.stringify({state:lockStatus}));
 });
+
+// WebSocketの生存確認(Ping/Pong)
+setInterval(function(){
+  debug('PING send.');
+  ws.ping('PING');
+}, 30000);
+
+ws.on('pong', function(data, flags){
+  debug('PONG received: ' + data.toString());
+});
+
+ws.on('ping', function(data, flags){
+  ws.pong('PONG');
+  debug('PING received: ' + data.toString());
+});
