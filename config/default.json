@@ -1,4 +1,7 @@
 {
+  "websocket": {
+    "address": "ws://smalo.cosmoway.net"
+  },
   "ibeacon": {
     "uuid": "51A4A738-62B8-4B26-A929-3BBAC2A5CE7C",
     "major": 51025,
