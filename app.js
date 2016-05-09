@@ -7,11 +7,11 @@ var DoorStatus = require('./lib/door-status');
 var doorStatus = new DoorStatus();
 
 var WebSocket = require('ws');
-var ws = new WebSocket('ws://smalo.cosmoway.net');
+var ws = new WebSocket(config.websocket.address);
 
 ws.on('open', function(){
   debug('websocket connected.');
-  ws.send(JSON.stringify({uuid: 'EFDA04E8-20DE-4A57-A01B-1C145BB2BA6B'}));
+  ws.send(JSON.stringify({uuid: config.door.uuid || '12345678-1111-2222-3333-ABCDEFGHIJKL'}));
   ws.send(JSON.stringify({status: doorStatus.getStatus()}));
 });
 
