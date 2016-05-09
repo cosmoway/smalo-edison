@@ -3,6 +3,8 @@ var config = require('config');
 var IBeacon = require('./lib/bleno_ibeacon');
 var debug = require('debug')('smalo');
 
+var door = require('./lib/door');
+
 var DoorStatus = require('./lib/door-status');
 var doorStatus = new DoorStatus();
 
@@ -11,13 +13,37 @@ var ws = new WebSocket(config.websocket.address);
 
 ws.on('open', function(){
   debug('websocket connected.');
-  ws.send(JSON.stringify({uuid: config.door.uuid || '12345678-1111-2222-3333-ABCDEFGHIJKL'}));
+  var deviceUuid = config.door.uuid || '12345678-1111-2222-3333-ABCDEFGHIJKL';
+  ws.send(JSON.stringify({uuid: deviceUuid}));
   ws.send(JSON.stringify({status: doorStatus.getStatus()}));
 });
 
 ws.on('message', function(data, flags){
   debug('message received.');
   console.log(data, flags);
+  try{
+    var messageJson = JSON.parse(data);
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+
+  var command = messageJson.command;
+  if (command === undefined) {
+      debug('does not lock/unlock request.');
+      console.error('does not lock/unlock request.');
+      return;
+  }
+
+  if (command === 'lock') {
+    debug('execute door locking...');
+    door.lock();
+  }
+
+  if (command === 'unlock') {
+    debug('execute door unlocking...');
+    door.unlock();
+  }
 });
 
 ws.on('error', function(error){
@@ -45,3 +71,5 @@ ws.on('ping', function(data, flags){
   ws.pong('PONG');
   debug('PING received: ' + data.toString());
 });
+
+// TODO: 切断された場合の再接続は？
