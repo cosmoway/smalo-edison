@@ -54,7 +54,12 @@ ws.on('error', function(error){
 // 鍵の状態が変更された時、通知する。
 doorStatus.on('changeStatus', function(lockStatus){
   debug('lock status changed to ' + lockStatus);
-  ws.send(JSON.stringify({state:lockStatus}));
+  ws.send(JSON.stringify({state:lockStatus}), function(error){
+    if (error) {
+      debug('does not send lock status.');
+      console.error(error);
+    }
+  });
 });
 
 // WebSocketの生存確認(Ping/Pong)
