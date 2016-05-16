@@ -1,4 +1,8 @@
 {
+  "apiserver": {
+    "host": "smalo.cosmoway.net",
+    "port": 443
+  },
   "websocket": {
     "address": "wss://smalo.cosmoway.net:8443"
   },
