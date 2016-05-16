@@ -1,6 +1,6 @@
 // app.js
 var config = require('config');
-var IBeacon = require('./lib/bleno_ibeacon');
+var IBeacon = require('./lib/bleno-ibeacon');
 var debug = require('debug')('smalo');
 
 var door = require('./lib/door');
