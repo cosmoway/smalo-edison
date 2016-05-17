@@ -1,12 +1,14 @@
 // app.js
 var config = require('config');
-var IBeacon = require('./lib/bleno_ibeacon');
+var IBeacon = require('./lib/bleno-ibeacon');
 var debug = require('debug')('smalo');
 
 var door = require('./lib/door');
 
 var DoorStatus = require('./lib/door-status');
 var doorStatus = new DoorStatus();
+
+var registerDevice = require('./lib/register-device');
 
 var WebSocket = require('ws');
 var ws = new WebSocket(config.websocket.address);
