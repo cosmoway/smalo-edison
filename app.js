@@ -5,7 +5,7 @@ var debug = require('debug')('smalo');
 
 var door = require('./lib/door');
 
-var DoorStatus = require('./lib/door-status');
+var DoorStatus = require('./lib/door-status-tilt-switch');
 var doorStatus = new DoorStatus();
 
 var registerDevice = require('./lib/register-device');
