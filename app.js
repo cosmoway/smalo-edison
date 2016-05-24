@@ -27,7 +27,7 @@ function createWebSocket(){
     ws.send(JSON.stringify({status: doorStatus.getStatus()}));
 
     // WebSocketの生存確認(Ping/Pong)
-    setInterval(function(){
+    pingPongTimer = setInterval(function(){
       debug('PING send.');
       try {
         ws.ping('PING');
