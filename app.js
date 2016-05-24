@@ -19,12 +19,27 @@ createWebSocket();
 function createWebSocket(){
   debug('connecting to ' + config.websocket.address);
   var ws = new WebSocket(config.websocket.address);
+  var changeStatusListener = function(lockStatus){
+    debug('lock status changed to ' + lockStatus);
+    ws.send(JSON.stringify({state:lockStatus}), function(error){
+      if (error) {
+        debug('does not send lock status.');
+        console.error(error);
+      }
+    });
+  };
 
   ws.on('open', function(){
     debug('websocket connected.');
     var deviceUuid = config.door.uuid || '12345678-1111-2222-3333-ABCDEFGHIJKL';
     ws.send(JSON.stringify({uuid: deviceUuid}));
     ws.send(JSON.stringify({status: doorStatus.getStatus()}));
+
+    // 試行回数をリセットする。
+    attempts = 1;
+
+    // 錠の状態が変更された時、通知する。
+    doorStatus.on('changeStatus', changeStatusListener);
 
     // WebSocketの生存確認(Ping/Pong)
     pingPongTimer = setInterval(function(){
@@ -40,6 +55,7 @@ function createWebSocket(){
   ws.on('close', function(code, message){
     debug('websocket disconnected.');
     clearInterval(pingPongTimer);
+    doorStatus.removeListener('changeStatus', changeStatusListener);
 
     var time = generateInterval(attempts);
     setTimeout(function(){
