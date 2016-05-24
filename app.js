@@ -109,6 +109,9 @@ function createWebSocket(){
 /**
  * 再接続時のインターバルを生成する。
  *
+ * @param {number} k 再接続試行回数
+ * @return {number} 再接続までの時間（ミリ秒）
+ *
  * @see http://wazanova.jp/items/1189
  * @see http://blog.johnryding.com/post/78544969349/how-to-reconnect-web-sockets-in-a-realtime-web-app
  * @see https://gist.github.com/strife25/9310539
