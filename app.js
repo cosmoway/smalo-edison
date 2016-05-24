@@ -17,6 +17,7 @@ var pingPongTimer;
 createWebSocket();
 
 function createWebSocket(){
+  debug('connecting to ' + config.websocket.address);
   var ws = new WebSocket(config.websocket.address);
 
   ws.on('open', function(){
