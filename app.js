@@ -10,12 +10,12 @@ var registerDevice = require('./lib/register-device');
 var attempts = 1;
 var pingPongTimer;
 
+// 鍵の位置を初期化
+door.unlock();
+
 createWebSocket();
 
 function createWebSocket(){
-  // 鍵の位置を初期化
-  door.unlock();
-
   debug('connecting to ' + config.websocket.address);
   var ws = new WebSocket(config.websocket.address);
   var changeStatusListener = function(lockStatus){
